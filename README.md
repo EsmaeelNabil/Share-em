@@ -64,8 +64,8 @@ Share.with(context = this)
 ``` kotlin
 
 Share.with(context = this).item(SharableItem(
-        pictureUrl = "ImageUrl", default = ""
-        data = "this is body data that will be shared with the image!", default = ""
+        pictureUrl = "ImageUrl", //default = ""
+        data = "this is body data that will be shared with the image!", //default = ""
         shareAppLink = false // don't generate appliaction playstore `download our app` message with the data text. default = false
     ),
 
