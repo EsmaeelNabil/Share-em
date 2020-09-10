@@ -18,11 +18,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        /*Share.with(context = this)
+            .item(
+                SharableItem(pictureUrl = "ImageUrl"),
+                onStart = {},
+                onFinish = { isSuccessful, errorMessage -> })
+
+        Share.with(context = this)
+            .item(
+                SharableItem(data = "Text To Share"),
+                onStart = {},
+                onFinish = { isSuccessful, errorMessage -> })*/
+
+
         binding.share.setOnClickListener {
+
             Share.with(context = this)
                 .item(SharableItem(
-//                    pictureUrl = "https://images.unsplash.com/photo-1578738095540-cadfa6e5f6c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-                    pictureUrl = "google",
+                    pictureUrl = "https://images.unsplash.com/photo-1578738095540-cadfa6e5f6c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
                     data = "this is a test image!",
                     shareAppLink = false
                 ),
@@ -36,18 +49,8 @@ class MainActivity : AppCompatActivity() {
                         // if isSuccessful you will see an intent chooser else check the error message
                         if (isSuccessful) {
                             Log.e(TAG, "Successfully shared")
-                            Toast.makeText(
-                                applicationContext,
-                                "Successfully shared",
-                                Toast.LENGTH_SHORT
-                            ).show()
                         } else {
                             Log.e(TAG, "error happened : $errorMessage")
-                            Toast.makeText(
-                                applicationContext,
-                                "error happened : $errorMessage",
-                                Toast.LENGTH_SHORT
-                            ).show()
                         }
                     }
                 )

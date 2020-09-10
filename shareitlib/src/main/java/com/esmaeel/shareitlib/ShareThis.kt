@@ -12,7 +12,7 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 
 
-class Share private constructor(private var context: Context) {
+public class Share private constructor(private var context: Context) {
     private lateinit var imageLoader: ImageLoader
 
     /**
