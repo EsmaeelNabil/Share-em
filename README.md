@@ -40,12 +40,33 @@ dependencies {
 
 ## Usage
 
+### Simple usage 
+- Only share the Image
+``` kotlin
+Share.with(context = this)
+            .item(
+                SharableItem(pictureUrl = "ImageUrl"),
+                onStart = {},
+                onFinish = { isSuccessful, errorMessage -> })
+```
+
+
+- Only share A Text
+``` kotlin
+Share.with(context = this)
+            .item(
+                SharableItem(data = "Text To Share"),
+                onStart = {},
+                onFinish = { isSuccessful, errorMessage -> })
+```
+
+### More Specific Example
 ``` kotlin
 
 Share.with(context = this).item(SharableItem(
-        pictureUrl = "ImageUrl",
-        data = "this is body data that will be shared with the image!",
-        shareAppLink = false // don't generate appliaction playstore `download our app` message with the data text.
+        pictureUrl = "ImageUrl", default = ""
+        data = "this is body data that will be shared with the image!", default = ""
+        shareAppLink = false // don't generate appliaction playstore `download our app` message with the data text. default = false
     ),
 
         onStart = {
