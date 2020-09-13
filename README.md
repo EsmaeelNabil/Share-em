@@ -44,8 +44,7 @@ dependencies {
 - Only share the Image
 ``` kotlin
 Share.with(context = this)
-            .item(
-                SharableItem(pictureUrl = "ImageUrl"),
+            .item(SharableItem(pictureUrl = "ImageUrl"),
                 onStart = {},
                 onFinish = { isSuccessful, errorMessage -> })
 ```
@@ -54,8 +53,7 @@ Share.with(context = this)
 - Only share A Text
 ``` kotlin
 Share.with(context = this)
-            .item(
-                SharableItem(data = "Text To Share"),
+            .item(SharableItem(data = "Text To Share"),
                 onStart = {},
                 onFinish = { isSuccessful, errorMessage -> })
 ```
