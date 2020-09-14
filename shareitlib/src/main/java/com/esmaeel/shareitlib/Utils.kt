@@ -13,7 +13,11 @@ fun Context.getUriFromBitmap(bitmap: Bitmap): Uri {
     // save the image and get it's uri
     val bytes = ByteArrayOutputStream()
     bitmap.compress(Bitmap.CompressFormat.PNG, 100, bytes)
-    val path: String =
-        MediaStore.Images.Media.insertImage(this.contentResolver, bitmap, "Title", null)
+    val path: String = MediaStore.Images.Media.insertImage(
+        this.contentResolver,
+        bitmap,
+        "${Calendar.getInstance().time}_image",
+        "image ${Calendar.getInstance().time}"
+    )
     return Uri.parse(path)
 }
