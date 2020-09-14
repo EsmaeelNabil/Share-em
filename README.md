@@ -33,7 +33,7 @@ And add a dependency code to your **APP**'s `build.gradle` file. [![](https://ji
 ```gradle
 dependencies {
 
-	  implementation 'com.github.EsmaeelNabil:Share-em:1.0.4'
+	  implementation 'com.github.EsmaeelNabil:Share-em:1.0.7'
 
 }
 ```
