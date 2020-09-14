@@ -36,8 +36,9 @@ class MainActivity : AppCompatActivity() {
             Share.with(context = this)
                 .item(SharableItem(
                     pictureUrl = "https://images.unsplash.com/photo-1554290712-e640351074bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-                    data = "this is an example for sharing image with Text:)",
-                    shareAppLink = true
+                    data = "this is an example for sharing image with Text with AppLink, and a custom message for sharing link :)",
+                    shareAppLink = true,
+                    downloadOurAppMessage = "Find us here"
                 ),
                     onStart = {
                         // do something onStart like : Loading

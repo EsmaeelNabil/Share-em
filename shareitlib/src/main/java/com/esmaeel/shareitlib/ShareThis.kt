@@ -70,13 +70,8 @@ public class Share private constructor(private var context: Context) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
 
-        // if has text data
-        var sharedText = if (itemSpecs.data.isNotEmpty()) itemSpecs.data else ""
-        // if has shareAppLink enabled
-        sharedText += if (itemSpecs.shareAppLink) "\nYou can download our app from https://play.google.com/store/apps/details?id=${context.packageName}" else sharedText
-
         // put the combination in the intent Extras
-        intent.putExtra(Intent.EXTRA_TEXT, sharedText);
+        intent.putExtra(Intent.EXTRA_TEXT, generateSharedText(itemSpecs = itemSpecs));
 
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(Intent.createChooser(intent, "Share"))
@@ -148,13 +143,8 @@ public class Share private constructor(private var context: Context) {
             // save the bitmap and generate a URI for it
             intent.putExtra(Intent.EXTRA_STREAM, context.getUriFromBitmap(bitmap))
 
-            // if has text data
-            var sharedText = if (itemSpecs.data.isNotEmpty()) itemSpecs.data else ""
-            // if has shareAppLink enabled
-            sharedText += if (itemSpecs.shareAppLink) "\nYou can download our app from https://play.google.com/store/apps/details?id=${context.packageName}" else ""
-
             // put the combination in the intent Extras
-            intent.putExtra(Intent.EXTRA_TEXT, sharedText);
+            intent.putExtra(Intent.EXTRA_TEXT, generateSharedText(itemSpecs = itemSpecs));
 
             // grant the chooser to read the image from the uri and start sharing
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -176,6 +166,14 @@ public class Share private constructor(private var context: Context) {
      */
     private fun getSharingPolicy(): StrictMode.VmPolicy? {
         return StrictMode.VmPolicy.Builder().build();
+    }
+
+    private fun generateSharedText(itemSpecs: SharableItem) :String {
+        // if has text data
+        var sharedText = if (itemSpecs.data.isNotEmpty()) itemSpecs.data else ""
+        // if has shareAppLink enabled
+        sharedText += if (itemSpecs.shareAppLink) "\n ${if(itemSpecs.downloadOurAppMessage.isNotEmpty()) itemSpecs.downloadOurAppMessage else "You can download our app from"} https://play.google.com/store/apps/details?id=${context.packageName}" else ""
+        return sharedText
     }
 
 }
