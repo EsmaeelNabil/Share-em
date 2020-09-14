@@ -33,7 +33,7 @@ And add a dependency code to your **APP**'s `build.gradle` file. [![](https://ji
 ```gradle
 dependencies {
 
-	  implementation 'com.github.EsmaeelNabil:Share-em:1.0.3'
+	  implementation 'com.github.EsmaeelNabil:Share-em:1.0.4'
 
 }
 ```
@@ -62,9 +62,10 @@ Share.with(context = this)
 ``` kotlin
 
 Share.with(context = this).item(SharableItem(
-        pictureUrl = "ImageUrl", //default = ""
-        data = "this is body data that will be shared with the image!", //default = ""
-        shareAppLink = false // don't generate appliaction playstore `download our app` message with the data text. default = false
+        pictureUrl = "https://images.unsplash.com/photo-1554290712-e640351074bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=965&q=80",
+        data = "body text",                       //default = ""
+        shareAppLink = false,                    // don't generate appliaction playstore `download our app` message with the data text. default = false
+        downloadOurAppMessage = "Find us here"  // A custom message for AppLink sharing feature
     ),
 
         onStart = {
@@ -89,6 +90,7 @@ Share.with(context = this).item(SharableItem(
 
 ## Tips
 -  if `pictureUrl = "ImageUrl"` is not a `valid` URL you will be sharing only the `data` text.
+-  if `downloadOurAppMessage  is provided and `shareAppLink` is false it will be ignored
 
 ## License
 
