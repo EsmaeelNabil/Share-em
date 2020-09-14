@@ -155,6 +155,10 @@ public class Share private constructor(private var context: Context) {
                 );
             }
 
+            if (itemSpecs.data.isNotEmpty()) {
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, itemSpecs.data);
+            }
+            
             // grant the chooser to read the image from the uri and start sharing
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
