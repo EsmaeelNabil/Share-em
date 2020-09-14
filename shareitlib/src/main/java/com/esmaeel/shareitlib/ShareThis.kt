@@ -70,13 +70,14 @@ public class Share private constructor(private var context: Context) {
         val intent = Intent(Intent.ACTION_SEND)
         intent.type = "text/plain"
 
-        if (itemSpecs.shareAppLink) {
-            intent.putExtra(
-                Intent.EXTRA_TEXT,
-                "${itemSpecs.data} \nYou can download our app from \nhttps://play.google.com/store/apps/details?id=${context.packageName}"
-            );
-        }
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, itemSpecs.data);
+        // if has text data
+        var sharedText = if (itemSpecs.data.isNotEmpty()) itemSpecs.data else ""
+        // if has shareAppLink enabled
+        sharedText += if (itemSpecs.shareAppLink) "\nYou can download our app from https://play.google.com/store/apps/details?id=${context.packageName}" else sharedText
+
+        // put the combination in the intent Extras
+        intent.putExtra(Intent.EXTRA_TEXT, sharedText);
+
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(Intent.createChooser(intent, "Share"))
         onFinish(true, "")
@@ -147,18 +148,14 @@ public class Share private constructor(private var context: Context) {
             // save the bitmap and generate a URI for it
             intent.putExtra(Intent.EXTRA_STREAM, context.getUriFromBitmap(bitmap))
 
-            // if the developer chosen to share the playStore link with the SharableItem() params
-            if (itemSpecs.shareAppLink) {
-                intent.putExtra(
-                    Intent.EXTRA_TEXT,
-                    "${itemSpecs.data} \nYou can download our app from \nhttps://play.google.com/store/apps/details?id=${context.packageName}"
-                );
-            }
+            // if has text data
+            var sharedText = if (itemSpecs.data.isNotEmpty()) itemSpecs.data else ""
+            // if has shareAppLink enabled
+            sharedText += if (itemSpecs.shareAppLink) "\nYou can download our app from https://play.google.com/store/apps/details?id=${context.packageName}" else ""
 
-            if (itemSpecs.data.isNotEmpty()) {
-                intent.putExtra(android.content.Intent.EXTRA_TEXT, itemSpecs.data);
-            }
-            
+            // put the combination in the intent Extras
+            intent.putExtra(Intent.EXTRA_TEXT, sharedText);
+
             // grant the chooser to read the image from the uri and start sharing
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

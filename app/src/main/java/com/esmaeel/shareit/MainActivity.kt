@@ -35,9 +35,9 @@ class MainActivity : AppCompatActivity() {
 
             Share.with(context = this)
                 .item(SharableItem(
-                    pictureUrl = "https://images.unsplash.com/photo-1578738095540-cadfa6e5f6c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-                    data = "this is a test image!",
-                    shareAppLink = false
+                    pictureUrl = "https://images.unsplash.com/photo-1554290712-e640351074bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+                    data = "this is an example for sharing image with Text:)",
+                    shareAppLink = true
                 ),
                     onStart = {
                         // do something onStart like : Loading
