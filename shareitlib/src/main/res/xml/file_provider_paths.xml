@@ -1,0 +1,10 @@
+<paths xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <files-path
+        name="shared"
+        path="shared/" />
+    <cache-path
+        name="share"
+        path="image_manager_disk_cache"
+        tools:path="DiskCache.Factory.DEFAULT_DISK_CACHE_DIR" />
+</paths>

@@ -2,18 +2,10 @@ package com.esmaeel.shareitlib
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
 import android.os.StrictMode
-import coil.Coil
-import coil.ImageLoader
-import coil.request.ErrorResult
-import coil.request.ImageRequest
-import coil.request.SuccessResult
-
 
 public class Share private constructor(private var context: Context) {
-    private lateinit var imageLoader: ImageLoader
 
     /**
      * provides a static object
@@ -33,7 +25,7 @@ public class Share private constructor(private var context: Context) {
         onStart: () -> Unit,
         onFinish: (successful: Boolean, error: String) -> Unit
     ) {
-        imageLoader = Coil.imageLoader(context)
+
         if (itemSpecs.pictureUrl.isNotEmpty() && android.util.Patterns.WEB_URL.matcher(itemSpecs.pictureUrl)
                 .matches()
         ) {
@@ -78,44 +70,19 @@ public class Share private constructor(private var context: Context) {
         onFinish(true, "")
     }
 
-
-    /**
-     * Downloads the image (asynchronously)
-     */
     private fun shareItemWithImage(
         itemSpecs: SharableItem,
         onStart: () -> Unit,
         onFinish: (successful: Boolean, error: String) -> Unit
     ) {
-
         onStart.invoke()
-
-        CoroutinesManager.onIOThread {
-            val request = ImageRequest.Builder(context)
-                .data(itemSpecs.pictureUrl)
-                .allowHardware(false)
-                .build()
-            val response = imageLoader.execute(request)
-
-            // network might not be working or slow, so an exception might been caught
-            // so we check for if the drawable is null or not
-            if (response.drawable != null) {
-                val result = (response as SuccessResult).drawable
-                val bitmap = (result as BitmapDrawable).bitmap
-                CoroutinesManager.onMainThread {
-                    igniteImageIntent(context, itemSpecs, bitmap, onFinish)
-                }
-            } else {
-                // the exception has been caught so we cast the response to
-                // ErrorResult that has the throwable of what happened
-                val result = (response as ErrorResult).throwable
-                CoroutinesManager.onMainThread {
-                    onFinish(false, result.message ?: "Unknown Error")
-                }
-            }
-
-        }
-
+        context.getUriFromImageUrl(url = itemSpecs.pictureUrl, onFail = {
+            if (itemSpecs.failOnDownloadFailing)
+                onFinish(false, it.message ?: "Unknown error while downloading image")
+            else igniteTextIntent(onStart, context, itemSpecs, onFinish)
+        }, onUriReady = {
+            igniteImageIntent(context, itemSpecs, it, onFinish)
+        })
     }
 
 
@@ -129,7 +96,7 @@ public class Share private constructor(private var context: Context) {
     private fun igniteImageIntent(
         context: Context,
         itemSpecs: SharableItem,
-        bitmap: Bitmap,
+        uri: Uri? = null,
         onFinish: (successful: Boolean, error: String) -> Unit
     ) {
         try {
@@ -141,7 +108,9 @@ public class Share private constructor(private var context: Context) {
             intent.type = "image/*"
 
             // save the bitmap and generate a URI for it
-            intent.putExtra(Intent.EXTRA_STREAM, context.getUriFromBitmap(bitmap))
+            uri?.let {
+                intent.putExtra(Intent.EXTRA_STREAM, it)
+            }
 
             // put the combination in the intent Extras
             intent.putExtra(Intent.EXTRA_TEXT, generateSharedText(itemSpecs = itemSpecs));
@@ -149,7 +118,7 @@ public class Share private constructor(private var context: Context) {
             // grant the chooser to read the image from the uri and start sharing
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            context.startActivity(Intent.createChooser(intent, "Share Image"))
+            context.startActivity(Intent.createChooser(intent, "Share"))
             // successful sharing
             onFinish(true, "")
 
@@ -168,11 +137,11 @@ public class Share private constructor(private var context: Context) {
         return StrictMode.VmPolicy.Builder().build();
     }
 
-    private fun generateSharedText(itemSpecs: SharableItem) :String {
+    private fun generateSharedText(itemSpecs: SharableItem): String {
         // if has text data
         var sharedText = if (itemSpecs.data.isNotEmpty()) itemSpecs.data else ""
         // if has shareAppLink enabled
-        sharedText += if (itemSpecs.shareAppLink) "\n ${if(itemSpecs.downloadOurAppMessage.isNotEmpty()) itemSpecs.downloadOurAppMessage else "You can download our app from"} https://play.google.com/store/apps/details?id=${context.packageName}" else ""
+        sharedText += if (itemSpecs.shareAppLink) "\n ${if (itemSpecs.downloadOurAppMessage.isNotEmpty()) itemSpecs.downloadOurAppMessage else "You can download our app from"} https://play.google.com/store/apps/details?id=${context.packageName}" else ""
         return sharedText
     }
 

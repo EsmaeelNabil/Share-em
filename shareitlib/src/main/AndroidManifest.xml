@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.esmaeel.shareitlib">
+
+    <application>
+
+        <provider
+            android:name=".ShareFileProvider"
+            android:authorities="${applicationId}.library.file.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_paths"
+                tools:node="merge" />
+        </provider>
+
+
+    </application>
 
 </manifest>
