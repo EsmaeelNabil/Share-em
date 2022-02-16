@@ -63,7 +63,8 @@ Share.with(context = this)
 
 Share.with(context = this).item(SharableItem(
         pictureUrl = "https://images.unsplash.com/photo-1554290712-e640351074bd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=965&q=80",
-        data = "body text",                       //default = ""
+        failOnDownloadFailing = true,             // default = false
+	data = "body text",                       //default = ""
         shareAppLink = false,                    // don't generate appliaction playstore `download our app` message with the data text. default = false
         downloadOurAppMessage = "Find us here"  // A custom message for AppLink sharing feature
     ),
@@ -90,7 +91,8 @@ Share.with(context = this).item(SharableItem(
 
 ## Tips
 -  if `pictureUrl = "ImageUrl"` is not a `valid` URL you will be sharing only the `data` text.
--  if `downloadOurAppMessage  is provided and `shareAppLink` is false it will be ignored
+-  if `failOnDownloadFailing = true` the share process will fail if the image isn't downloaded `else` the process will continue with sharing other inputs.
+-  if `downloadOurAppMessage  is provided and `shareAppLink` is false it will be ignored.
 
 ## License
 
