@@ -113,7 +113,7 @@ object Libs {
     const val multiDex =  "com.android.support:multidex:${Versions.multiDexVersion}"
 
     //WebView
-    const val webView = "com.github.delight-im:Android-AdvancedWebView:v3.2.1"
+    const val webView = "com.github.delight-im:Android-AdvancedWebView:2.1.1"
 
 }
 
