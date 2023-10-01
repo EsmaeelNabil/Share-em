@@ -24,7 +24,7 @@ object Versions {
     const val statusBarUtilVersion = "1.5.1"
     /* test */
     const val junit = "4.12"
-    const val androidExtJunit = "1.1.0"
+    const val androidExtJunit = "1.1.5"
     const val androidEspresso = "3.2.0"
     const val mockkVersion = "1.10.0"
 
