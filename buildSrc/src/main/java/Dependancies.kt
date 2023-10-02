@@ -103,7 +103,7 @@ object Libs {
     const val formValidator =  "com.afollestad:vvalidator:0.5.2"
 
 
-    const val appLocalHelper =  "dev.b3nedikt.applocale:applocale:2.0.1"
+    const val appLocalHelper =  "dev.b3nedikt.applocale:applocale:2.0.3"
 
     // Rounded & Circle ImageViews
     const val roundedImageView =  "com.makeramen:roundedimageview:${Versions.roundedImageViewVersion}"
