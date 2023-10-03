@@ -18,7 +18,7 @@ object Versions {
     const val constraintLayoutVersion = "1.1.3"
     const val coroutinesVersion = "1.3.7"
     const val roomVersion = "2.2.4"
-    const val koinVersion = "2.0.1"
+    const val koinVersion = "2.2.2"
     const val retrofitVersion = "2.9.0"
     const val okHttpVersions = "4.8.1"
     const val statusBarUtilVersion = "1.5.1"
