@@ -20,7 +20,7 @@ object Versions {
     const val roomVersion = "2.2.4"
     const val koinVersion = "2.0.1"
     const val retrofitVersion = "2.9.0"
-    const val okHttpVersions = "4.8.1"
+    const val okHttpVersions = "4.12.0"
     const val statusBarUtilVersion = "1.5.1"
     /* test */
     const val junit = "4.12"
