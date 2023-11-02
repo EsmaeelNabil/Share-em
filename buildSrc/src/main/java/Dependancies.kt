@@ -32,7 +32,7 @@ object Versions {
     const val lifecycle_version = "2.2.0"
 
     // navigation component
-    const val nav_version = "2.3.0"
+    const val nav_version = "2.7.5"
 
     // rounded and circle imageView
     const val roundedImageViewVersion = "2.3.0"
