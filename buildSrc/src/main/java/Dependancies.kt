@@ -11,7 +11,7 @@ object Apps {
 
 object Versions {
     const val gradle = "3.5.3"
-    const val kotlin = "1.4.0"
+    const val kotlin = "1.9.21"
     const val appcompat = "1.1.0"
     const val material = "1.2.0"
     const val coreKtxVersion = "1.2.0"
